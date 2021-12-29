@@ -1,73 +1,243 @@
+/* Este es un cajero automático que maneja operaciones como:
+1. Comprobar el balance de la cuenta
+2. Depositar Dinero en una cuenta.
+3. Retirar Dinero de una cuenta.
+
+Un cliente tendrá que escribir su número de cuenta y un pin para acceder a operaciones con la cuenta.
+Este programa usa una cuenta "ficticia" con número de cuenta 12345 y número de Pin 54321
+*/
 #include <iostream>
-#include <conio.h>
-#include <string.h>
-int saldoT{};
-int deposito{};
-int retiro{};
-int vrRetiro{};
-void Deposito() {
-	std::cin >> deposito;
-	std::cout << "\n valor del Deposito es de : " << deposito;
+
+
+int numeroCuentaCliente = 12345;
+int numeroPin = 54321;
+int balanceCuenta = 0;
+
+bool validarDetallesCliente() {
+
+    int entradaNumeroCuenta = -1;
+    int entradaNumeroPin = -1;
+    bool esCuentaInvalida = true;
+    bool esPinInvalido = true;
+
+    std::cout << "Bienvenido" << std::endl;
+
+    while (esCuentaInvalida) {
+
+        std::cout << "Por favor escribe tu número de cuenta del Banco: ";
+        std::cin >> entradaNumeroCuenta;
+
+        if (entradaNumeroCuenta == numeroCuentaCliente) {
+            esCuentaInvalida = false;
+        }
+        else {
+            std::cout << "El número de cuenta es inválido. Escribe el número correcto." << std::endl;
+        }
+    }
+    int reintentoCuenta = 3;
+    while (esPinInvalido && reintentoCuenta) {
+
+        std::cout << "Escribe tu PIN personalizado: ";
+        std::cin >> entradaNumeroPin;
+
+        if (entradaNumeroPin == numeroPin) {
+            esPinInvalido = false;
+        }
+        else {
+            reintentoCuenta--;
+            if (reintentoCuenta)
+                std::cout << "El PIN personalizado es inválido. Escribe el PIN correcto." << std::endl;
+            else
+            {
+                std::cout << "Tu cuenta ha sido bloqueada. Máximo de tres intentos. Vuelve a intentarlo más tarde." << std::endl;
+                return false;
+            }
+
+        }
+
+    }
+
+    return true;
+
 }
-void SaldoTotal() {
-	saldoT = 0;
-	saldoT = deposito - retiro;
-	std::cout << "\n El Saldo a la Fecha es de : " << saldoT;
+
+int mostrarMenu() {
+
+    int opcionEscritaUsuario = -1;
+
+    std::cout << "Bienvenido a Tu Cuenta. Por favor elige una Opción para Proceder" << std::endl;
+    std::cout << "    1 - Ver balance de Tu Cuenta" << std::endl;
+    std::cout << "    2 - Retirar Dinero" << std::endl;
+    std::cout << "    3 - Depositar Dinero" << std::endl;
+    std::cout << "    4 - Salir" << std::endl;
+    std::cout << "Escribe una Opción para Proceder: " << std::endl;
+    std::cin >> opcionEscritaUsuario;
+
+    return opcionEscritaUsuario;
+
 }
-void Retiros() {
-	std::cin >> vrRetiro;
-	if (saldoT > vrRetiro)
-	{
-		retiro = saldoT - vrRetiro;
-		std::cout << "\n El valor del Retiro es de : " << retiro;
-	}
-	else
-		std::cout << "\n ******** Fondos Insuficientes....**********\n";
+
+void mostrarBalanceCuenta() {
+
+    std::cout << "El balance de tu cuenta es:" << std::endl;
+    std::cout << " " << balanceCuenta << std::endl;
+
 }
-void menu() {
-	int opciones;
-	char opcionsalir;
-	opcionsalir = 'n';
-	do
-	{
-		std::cout << "\n";
-		std::cout << "\t ******* BIENVENIDO AL CAJERO BCH ******\n";
-		std::cout << "\n ";
-		std::cout << "\n 1. Consulta de Saldo \n";
-		std::cout << "\n 2. Deposito \n";
-		std::cout << "\n 3. retiro \n";
-		std::cout << "\n";
-		std::cout << "\n Por favor digite la Opcion de Transaccion : "; std::cin >> opciones;
-		std::cout << "\n";
-		switch (opciones) {
-			case
-			1:
-			{
-				std::cout << "\n "; SaldoTotal();
-				break; }
-			case
-			2:
-			{
-				std::cout << "Por favor digite el Valor a Depositar : "; Deposito();
-				break; }
-			case
-			3:
-			{
-				std::cout << "Por favor digite el Valor a Retirar : "; Retiros();
-				break; }
-			default:
-			{
-				std::cout << "\n Error opcion no existe \n";
-				break; }
-		}
-		std::cout << "\n**********************************************************\n";
-		std::cout << "\n Desea realizar otra Transaccion?? s/n : "; std::cin >> opcionsalir;
-	} while (opcionsalir != 'n');
+
+void retirarDineroCuenta() {
+
+    int opcionEscritaUsuario = -1;
+    int valorARetirar = 0;
+    long PeticionCliente = 0;
+    bool noHaFinalizado = true;
+
+    do {
+
+        std::cout << "Opciones de Retirada:" << std::endl;
+        std::cout << "1 -  20" << std::endl;
+        std::cout << "2 -  40" << std::endl;
+        std::cout << "3 -  60" << std::endl;
+        std::cout << "4 -  100" << std::endl;
+        std::cout << "5 -  200" << std::endl;
+        std::cout << "6 - Cancelar transacción" << std::endl;
+        std::cout << "7 - Cantidad Personalizada" << std::endl;
+        std::cout << "Elija una opción de retirada (1-7)" << std::endl;
+
+        std::cin >> opcionEscritaUsuario;
+        switch (opcionEscritaUsuario) {
+        case 1:
+            valorARetirar = 20;
+            break;
+        case 2:
+            valorARetirar = 40;
+            break;
+        case 3:
+            valorARetirar = 60;
+            break;
+        case 4:
+            valorARetirar = 100;
+            break;
+        case 5:
+            valorARetirar = 200;
+            break;
+        case 6:
+            noHaFinalizado = false;
+            break;
+        case 7:
+            std::cout << "Escriba Cantidad a Retirar:" << std::endl;
+            std::cin >> PeticionCliente;
+            valorARetirar = PeticionCliente;
+            noHaFinalizado = false;
+            break;
+        default:
+            std::cout << "Opción Inválida. Inténtelo de nuevo." << std::endl;
+            break;
+        }
+
+        if (valorARetirar != 0) {
+            if (valorARetirar > balanceCuenta) {
+                std::cout << "Lo siento El balance de su cuenta tiene solo  " << balanceCuenta << ". Usted no puede retirar  " << valorARetirar << std::endl;
+            }
+            else {
+                balanceCuenta = balanceCuenta - valorARetirar;
+                noHaFinalizado = false;
+            }
+            valorARetirar = 0;
+        }
+
+    } while (noHaFinalizado);
+
 }
-int main()
-{
-	menu();
-	fflush(stdin);
-	system("PAUSE");
-	return 0;
+
+void DepositarDineroEnCuenta() {
+
+    int opcionEscritaUsuario = -1;
+    bool noHaFinalizado = true;
+    long cantidadDepositada = 0;
+
+    do {
+
+        std::cout << "Opciones Depósito Dinero. Por favor Escriba Su Selección" << std::endl;
+        std::cout << "1 -  20" << std::endl;
+        std::cout << "2 -  40" << std::endl;
+        std::cout << "3 -  60" << std::endl;
+        std::cout << "4 -  100" << std::endl;
+        std::cout << "5 -  200" << std::endl;
+        std::cout << "6 - cancelar transacción" << std::endl;
+        std::cout << "7 - Cantidad Personalizada" << std::endl;
+        std::cout << "Elija una opción de depósito (1-7)" << std::endl;
+
+        std::cin >> opcionEscritaUsuario;
+        switch (opcionEscritaUsuario) {
+        case 1:
+            balanceCuenta = balanceCuenta + 20;
+            noHaFinalizado = false;
+            break;
+        case 2:
+            balanceCuenta = balanceCuenta + 40;
+            noHaFinalizado = false;
+            break;
+        case 3:
+            balanceCuenta = balanceCuenta + 60;
+            noHaFinalizado = false;
+            break;
+        case 4:
+            balanceCuenta = balanceCuenta + 100;
+            noHaFinalizado = false;
+            break;
+        case 5:
+            balanceCuenta = balanceCuenta + 200;
+            noHaFinalizado = false;
+            break;
+        case 6:
+            noHaFinalizado = false;
+            break;
+        case 7:
+            std::cout << "Please Enter Amount to Deposit:" << std::endl;
+            std::cin >> cantidadDepositada;
+            balanceCuenta = balanceCuenta + cantidadDepositada;
+            noHaFinalizado = false;
+            break;
+        default:
+            std::cout << "Invalid option! Try again." << std::endl;
+            break;
+        }
+
+    } while (noHaFinalizado);
+
+}
+
+int main() {
+    setlocale(LC_ALL, "es_ES.UTF-8");
+
+    if (validarDetallesCliente()) {
+
+        int noHaFinalizado = true;
+
+        do {
+
+            switch (mostrarMenu()) {
+            case 1:
+                mostrarBalanceCuenta();
+                break;
+            case 2:
+                retirarDineroCuenta();
+                break;
+            case 3:
+                DepositarDineroEnCuenta(); 
+                break;
+            case 4:
+                noHaFinalizado = false;
+                break;
+            default:
+                std::cout << "Opción Inválida. Pruebe de nuevo." << std::endl;
+                break;
+            }
+
+        } while (noHaFinalizado);
+
+    }
+
+    return 0;
+
 }
