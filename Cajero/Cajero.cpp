@@ -1,24 +1,20 @@
 #include <iostream>
 #include <conio.h>
 #include <string.h>
-using namespace std;
-int deposito, saldoT, vrRetiro, retiro;
+int saldoT{};
+int deposito{};
+int retiro{};
+int vrRetiro{};
 void Deposito() {
-	int deposito;
-	deposito = 0;
 	std::cin >> deposito;
 	std::cout << "\n valor del Deposito es de : " << deposito;
 }
 void SaldoTotal() {
-	int saldoT, deposito, retiro;
 	saldoT = 0;
 	saldoT = deposito - retiro;
 	std::cout << "\n El Saldo a la Fecha es de : " << saldoT;
 }
 void Retiros() {
-	int retiro, vrRetiro;
-	vrRetiro = 0;
-	retiro = 0;
 	std::cin >> vrRetiro;
 	if (saldoT > vrRetiro)
 	{
