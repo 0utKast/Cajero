@@ -3,8 +3,6 @@
 2. Depositar Dinero en una cuenta.
 3. Retirar Dinero de una cuenta.
 
-Un cliente tendrá que escribir su número de cuenta y un pin para acceder a operaciones con la cuenta.
-Este programa usa una cuenta "ficticia" con número de cuenta 12345 y número de Pin 54321
 */
 #include <iostream>
 int balanceCuenta = 0;
@@ -100,7 +98,7 @@ void Retiros() {
 
 }
 
-void DepositarDineroEnCuenta() {
+void Deposito() {
 
     int opcionEscritaUsuario = -1;
     bool noHaFinalizado = true;
@@ -175,7 +173,7 @@ int main() {
                 Retiros();
                 break;
             case 3:
-                DepositarDineroEnCuenta(); 
+                Deposito(); 
                 break;
             case 4:
                 noHaFinalizado = false;
