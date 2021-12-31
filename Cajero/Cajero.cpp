@@ -7,61 +7,12 @@ Un cliente tendrá que escribir su número de cuenta y un pin para acceder a ope
 Este programa usa una cuenta "ficticia" con número de cuenta 12345 y número de Pin 54321
 */
 #include <iostream>
-
-
-int numeroCuentaCliente = 12345;
-int numeroPin = 54321;
 int balanceCuenta = 0;
 
-bool validarDetallesCliente() {
 
-    int entradaNumeroCuenta = -1;
-    int entradaNumeroPin = -1;
-    bool esCuentaInvalida = true;
-    bool esPinInvalido = true;
 
-    std::cout << "Bienvenido" << std::endl;
 
-    while (esCuentaInvalida) {
-
-        std::cout << "Por favor escribe tu número de cuenta del Banco: ";
-        std::cin >> entradaNumeroCuenta;
-
-        if (entradaNumeroCuenta == numeroCuentaCliente) {
-            esCuentaInvalida = false;
-        }
-        else {
-            std::cout << "El número de cuenta es inválido. Escribe el número correcto." << std::endl;
-        }
-    }
-    int reintentoCuenta = 3;
-    while (esPinInvalido && reintentoCuenta) {
-
-        std::cout << "Escribe tu PIN personalizado: ";
-        std::cin >> entradaNumeroPin;
-
-        if (entradaNumeroPin == numeroPin) {
-            esPinInvalido = false;
-        }
-        else {
-            reintentoCuenta--;
-            if (reintentoCuenta)
-                std::cout << "El PIN personalizado es inválido. Escribe el PIN correcto." << std::endl;
-            else
-            {
-                std::cout << "Tu cuenta ha sido bloqueada. Máximo de tres intentos. Vuelve a intentarlo más tarde." << std::endl;
-                return false;
-            }
-
-        }
-
-    }
-
-    return true;
-
-}
-
-int mostrarMenu() {
+int menu() {
 
     int opcionEscritaUsuario = -1;
 
@@ -77,14 +28,14 @@ int mostrarMenu() {
 
 }
 
-void mostrarBalanceCuenta() {
+void SaldoTotal() {
 
     std::cout << "El balance de tu cuenta es:" << std::endl;
     std::cout << " " << balanceCuenta << std::endl;
 
 }
 
-void retirarDineroCuenta() {
+void Retiros() {
 
     int opcionEscritaUsuario = -1;
     int valorARetirar = 0;
@@ -210,18 +161,18 @@ void DepositarDineroEnCuenta() {
 int main() {
     setlocale(LC_ALL, "es_ES.UTF-8");
 
-    if (validarDetallesCliente()) {
+    
 
         int noHaFinalizado = true;
 
         do {
 
-            switch (mostrarMenu()) {
+            switch (menu()) {
             case 1:
-                mostrarBalanceCuenta();
+                SaldoTotal();
                 break;
             case 2:
-                retirarDineroCuenta();
+                Retiros();
                 break;
             case 3:
                 DepositarDineroEnCuenta(); 
@@ -236,7 +187,7 @@ int main() {
 
         } while (noHaFinalizado);
 
-    }
+    
 
     return 0;
 
